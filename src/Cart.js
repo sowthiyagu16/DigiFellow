@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useCart } from './CartContext';
 import './Cart.css';
 
@@ -11,16 +12,21 @@ function Cart() {
             {cart.length === 0 ? (
                 <p>No items in the cart yet.</p>
             ) : (
-                <ul className="cart-items">
-                    {cart.map((item, index) => (
-                        <li key={index} className="cart-item">
-                            {item.name} ({item.quantity})
-                            <button onClick={() => removeFromCart(item)} className="remove-from-cart-button">
-                                Remove
-                            </button>
-                        </li>
-                    ))}
-                </ul>
+                <>
+                    <ul className="cart-items list-group mb-3">
+                        {cart.map((item, index) => (
+                            <li key={index} className="list-group-item d-flex justify-content-between">
+                                {item.name} (x{item.quantity})
+                                <button onClick={() => removeFromCart(item)} className="btn btn-danger">
+                                    Remove
+                                </button>
+                            </li>
+                        ))}
+                    </ul>
+                    <Link to="/checkout" className="btn btn-primary">
+                        Proceed to Checkout
+                    </Link>
+                </>
             )}
         </div>
     );

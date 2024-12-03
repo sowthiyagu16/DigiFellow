@@ -11,7 +11,12 @@ function Search() {
     const handleSearch = async (event) => {
         event.preventDefault();
         try {
-            const response = await fetch(`/api/search?department=${department}&query=${query}`);
+            const token = localStorage.getItem('token');
+            const response = await fetch(`/api/search?department=${department}&query=${query}`, {
+                headers: {
+                    'x-access-token': token
+                }
+            });
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
